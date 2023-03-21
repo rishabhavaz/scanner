@@ -12,12 +12,12 @@ class SendXScanPositions extends ScanEvent {
   const SendXScanPositions({required this.xScanPositions});
 }
 
-class StopXScanner extends ScanEvent {
-  final bool stopped;
-  const StopXScanner({this.stopped = false});
+class ChangeXScanStatus extends ScanEvent {
+  final ScanStatus xScanStatus;
+  const ChangeXScanStatus({required this.xScanStatus});
 }
 
-class StartYScanner extends ScanEvent {
-  final bool started;
-  const StartYScanner({this.started = false});
+class ChangeYScanStatus extends ScanEvent {
+  final ScanStatus yScanStatus;
+  const ChangeYScanStatus({required this.yScanStatus});
 }

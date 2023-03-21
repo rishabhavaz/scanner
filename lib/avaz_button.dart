@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scan_element/enums.dart';
 import 'package:scan_element/session_helper.dart';
 
 import 'bloc/scan_bloc.dart';
@@ -37,11 +38,11 @@ class _AvazButtonState extends State<AvazButton> {
   Widget build(BuildContext context) {
     return BlocConsumer<ScanBloc, ScanState>(
       listener: (context, state) {
-        if (state.xStopped == true) {
+        if (state.xScanStatus == ScanStatus.off) {
           if (isOverLapping) {
             xScanKeys.add(Key(widget.value));
           }
-          log('$xScanKeys');
+          log('X Scanned Keys are $xScanKeys');
         }
       },
       builder: (context, state) {
@@ -53,7 +54,10 @@ class _AvazButtonState extends State<AvazButton> {
             height: 100,
             width: 100,
             color: isOverLapping ? Colors.amber : Colors.green,
-            child: Text(widget.value, style: TextStyle(fontSize: 30),));
+            child: Text(
+              widget.value,
+              style: TextStyle(fontSize: 30),
+            ));
       },
     );
   }

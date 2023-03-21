@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scan_element/enums.dart';
 
 import 'avaz_button.dart';
 import 'bloc/scan_bloc.dart';
@@ -45,9 +46,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: InkWell(
         onTap: () {
-          isStopped = !isStopped;
           BlocProvider.of<ScanBloc>(context)
-              .add(StopXScanner(stopped: isStopped));
+              .add(const ChangeXScanStatus(xScanStatus: ScanStatus.off));
         },
         child: Stack(
           alignment: Alignment.topLeft,

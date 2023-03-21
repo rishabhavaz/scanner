@@ -1,0 +1,1 @@
+enum ScanStatus {on, running, off}
