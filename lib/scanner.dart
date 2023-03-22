@@ -37,20 +37,21 @@ class _ScannerState extends State<Scanner> with TickerProviderStateMixin {
     double maxWidth = MediaQuery.of(context).size.width;
     double maxHeight = MediaQuery.of(context).size.height;
     return BlocListener<ScanBloc, ScanState>(
+      listenWhen: (previous, current) {
+        log('${previous.xScanStatus == current.xScanStatus}');
+        return previous.xScanStatus != current.xScanStatus ||
+            previous.yScanStatus != previous.yScanStatus;
+      },
       listener: (context, state) {
         if (state.xScanStatus == ScanStatus.off) {
+          _animationController.stop();
           if (state.yScanStatus == ScanStatus.on) {
             _animationController.repeat(reverse: true);
             BlocProvider.of<ScanBloc>(context)
                 .add(const ChangeYScanStatus(yScanStatus: ScanStatus.running));
           }
         }
-
         log('X Scanning is ${state.xScanStatus}, Y Scanning is ${state.yScanStatus}');
-        // else {
-        //   log('${state.xStopped}');
-        //   _animationController.repeat(reverse: true);
-        // }
       },
       child: AnimatedBuilder(
           animation: _animation,
